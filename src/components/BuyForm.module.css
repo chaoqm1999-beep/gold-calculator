@@ -1,0 +1,102 @@
+.card {
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-md) !important;
+  --adm-card-border-radius: var(--radius-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--gray-900);
+  letter-spacing: -0.01em;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gold-text);
+  background: var(--color-gold-bg);
+  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.fieldLabel {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--gray-600);
+  letter-spacing: -0.01em;
+}
+
+.input {
+  --adm-input-font-size: var(--text-base);
+}
+
+.dateBtn {
+  text-align: left;
+  --adm-button-border-radius: var(--radius-sm);
+  font-weight: 400 !important;
+  color: var(--gray-900) !important;
+  background: var(--color-white) !important;
+  box-shadow: var(--shadow-ring) !important;
+  border: none !important;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+}
+
+.totalLabel {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--gray-500);
+}
+
+.totalValue {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--gray-900);
+  letter-spacing: -0.48px;
+}
+
+.submitBtn {
+  margin-top: var(--space-2);
+  --adm-button-border-radius: var(--radius-sm);
+  --adm-button-background-color: var(--gray-900);
+  --adm-button-border-color: var(--gray-900);
+  --adm-button-text-color: var(--color-white);
+  color: var(--color-white) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+}

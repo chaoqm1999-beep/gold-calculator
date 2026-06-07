@@ -1,0 +1,135 @@
+.card {
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-md) !important;
+  --adm-card-border-radius: var(--radius-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--gray-900);
+  letter-spacing: -0.01em;
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--gray-400);
+  letter-spacing: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.item {
+  padding: var(--space-3) var(--space-4);
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--gray-900);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.item:active {
+  background: var(--gray-100);
+}
+
+.itemHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.typeBadge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+}
+
+.buyBadge {
+  color: var(--color-gold-text);
+  background: var(--color-gold-bg);
+}
+
+.sellBadge {
+  color: var(--color-profit-text);
+  background: var(--color-profit-bg);
+}
+
+.itemDate {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--gray-400);
+  letter-spacing: 0;
+  flex: 1;
+}
+
+.deleteBtn {
+  font-size: var(--text-xs) !important;
+  color: var(--gray-400) !important;
+  padding: 0 !important;
+  min-width: auto !important;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.deleteBtn:active {
+  color: var(--color-loss) !important;
+}
+
+.itemBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.itemWeight {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--gray-900);
+  letter-spacing: -0.32px;
+}
+
+.itemPrice {
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+}
+
+.itemLabor {
+  font-size: var(--text-xs);
+  color: var(--gray-400);
+}
+
+.itemTotal {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--gray-900);
+  letter-spacing: -0.01em;
+}
+
+.itemNote {
+  font-size: var(--text-xs);
+  color: var(--gray-400);
+  margin-top: 2px;
+}

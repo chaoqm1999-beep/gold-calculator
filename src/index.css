@@ -1,0 +1,184 @@
+/* ============================================
+   Global Styles — Vercel-Inspired Design System
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import './theme.css';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  color: var(--gray-900);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--color-bg-subtle);
+}
+
+/* ── antd-mobile Overrides — Vercel Palette ── */
+:root:root {
+  --adm-color-primary: var(--gray-900);
+  --adm-color-success: var(--color-profit);
+  --adm-color-danger: var(--color-loss);
+  --adm-color-warning: var(--color-gold);
+  --adm-color-text: var(--gray-900);
+  --adm-color-text-secondary: var(--gray-500);
+  --adm-color-weak: var(--gray-400);
+  --adm-color-background: var(--color-white);
+  --adm-color-border: var(--gray-100);
+  --adm-color-box: var(--gray-50);
+  --adm-font-size-main: var(--text-base);
+}
+
+/* Card — Vercel shadow-as-border */
+.adm-card {
+  --adm-card-border-radius: var(--radius-md) !important;
+  --adm-card-background-color: var(--color-white) !important;
+  border: none !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+.adm-card-header-title {
+  color: var(--gray-900) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.32px !important;
+}
+
+/* Input */
+.adm-input {
+  --adm-input-color: var(--gray-900) !important;
+  --adm-input-placeholder-color: var(--gray-400) !important;
+  --adm-input-background-color: var(--color-white) !important;
+  --adm-input-font-size: var(--text-base) !important;
+}
+
+.adm-list-body {
+  background: var(--color-white) !important;
+  border: none !important;
+  box-shadow: var(--shadow-ring) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.adm-list-item-content {
+  border-color: var(--gray-100) !important;
+}
+
+/* Button */
+.adm-button {
+  --adm-button-border-radius: var(--radius-sm) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  cursor: pointer !important;
+  transition: all var(--duration-fast) var(--ease-out) !important;
+}
+
+.adm-button:active {
+  transform: scale(0.98) !important;
+}
+
+/* Modal */
+.adm-modal {
+  --adm-modal-background: var(--color-white) !important;
+  --adm-modal-border-radius: var(--radius-lg) !important;
+}
+
+.adm-modal-content {
+  color: var(--gray-900) !important;
+}
+
+.adm-modal-header-title {
+  color: var(--gray-900) !important;
+  font-weight: 600 !important;
+}
+
+/* Dialog */
+.adm-dialog {
+  --adm-dialog-background: var(--color-white) !important;
+  --adm-dialog-border-radius: var(--radius-lg) !important;
+}
+
+.adm-dialog-body-content {
+  color: var(--gray-600) !important;
+}
+
+.adm-dialog-header-title {
+  color: var(--gray-900) !important;
+  font-weight: 600 !important;
+}
+
+/* Toast */
+.adm-toast-main {
+  --adm-toast-background: var(--gray-900) !important;
+  --adm-toast-border-radius: var(--radius-sm) !important;
+  color: var(--color-white) !important;
+}
+
+/* Empty */
+.adm-empty-description {
+  color: var(--gray-400) !important;
+}
+
+/* TabBar — Vercel bottom nav */
+.adm-tab-bar {
+  --adm-tab-bar-background: var(--color-white) !important;
+  --adm-tab-bar-border-color: var(--gray-100) !important;
+  --adm-tab-bar-active-color: var(--gray-900) !important;
+  --adm-tab-bar-unactive-color: var(--gray-400) !important;
+  box-shadow: 0 -1px 0 var(--gray-100) !important;
+  border: none !important;
+}
+
+/* DatePicker / Picker */
+.adm-picker {
+  --adm-picker-background: var(--color-white) !important;
+}
+
+.adm-picker-view-column-item {
+  color: var(--gray-400) !important;
+}
+
+.adm-picker-view-column-item-active {
+  color: var(--gray-900) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-200);
+  border-radius: var(--radius-pill);
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 114, 245, 0.15);
+  color: var(--gray-900);
+}

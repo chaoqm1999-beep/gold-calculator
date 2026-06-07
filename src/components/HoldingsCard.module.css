@@ -1,0 +1,102 @@
+.card {
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-lg) !important;
+  --adm-card-border-radius: var(--radius-lg);
+  padding-bottom: var(--space-2);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--gray-900);
+  letter-spacing: -0.01em;
+}
+
+/* ── 主金额区 ── */
+.mainValue {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--gray-900);
+  letter-spacing: -1.28px;
+  line-height: 1.1;
+  margin-bottom: var(--space-1);
+}
+
+/* ── 副标题 ── */
+.subtitle {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--gray-400);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-5);
+}
+
+/* ── 横向收益指标行 ── */
+.metrics {
+  display: flex;
+  align-items: stretch;
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) 0;
+}
+
+.metricItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.metricLabel {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: var(--space-1);
+}
+
+.metricValue {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--gray-900);
+  letter-spacing: -0.32px;
+  line-height: 1.2;
+}
+
+.metricRate {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.metricSub {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--gray-400);
+}
+
+.metricDivider {
+  width: 1px;
+  background: var(--gray-200);
+  align-self: center;
+  height: 40px;
+}
+
+/* ── 盈利/亏损颜色 ── */
+.profit {
+  color: var(--color-profit-text);
+}
+
+.loss {
+  color: var(--color-loss-text);
+}
