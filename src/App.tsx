@@ -13,6 +13,8 @@ import { BuyForm } from './components/BuyForm';
 import { SellForm } from './components/SellForm';
 import { RecordList } from './components/RecordList';
 import { ImportExport } from './components/ImportExport';
+import { PinGuard } from './components/PinGuard';
+import { AuthProvider } from './hooks/useAuth';
 import { useRecords } from './hooks/useRecords';
 import { useSettings } from './hooks/useSettings';
 import { calculateHoldings } from './utils/calculator';
@@ -103,70 +105,78 @@ function App() {
 
   if (recordsLoading || settingsLoading) {
     return (
-      <div className={styles.app}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Gold</h1>
-        </div>
-        <div className={styles.content} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <p style={{ color: 'var(--gray-400)', fontSize: '14px' }}>加载中...</p>
-        </div>
-      </div>
+      <AuthProvider>
+        <PinGuard>
+          <div className={styles.app}>
+            <div className={styles.header}>
+              <h1 className={styles.title}>Gold</h1>
+            </div>
+            <div className={styles.content} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <p style={{ color: 'var(--gray-400)', fontSize: '14px' }}>加载中...</p>
+            </div>
+          </div>
+        </PinGuard>
+      </AuthProvider>
     );
   }
 
   return (
-    <div className={styles.app}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Gold</h1>
-      </div>
+    <AuthProvider>
+      <PinGuard>
+        <div className={styles.app}>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Gold</h1>
+          </div>
 
-      <div className={styles.content}>
-        {activeTab === 'home' && (
-          <>
-            <HoldingsCard holdings={holdings} />
-            <PriceTrend
-              buyPrice={currentBuyPrice}
-              sellPrice={currentSellPrice}
-              priceHistory={priceHistory}
-              onUpdate={handlePriceUpdate}
-              goldPriceLoading={goldPriceLoading}
-              onRefresh={() => fetchAndUpdateGoldPrice(false)}
-            />
-          </>
-        )}
+          <div className={styles.content}>
+            {activeTab === 'home' && (
+              <>
+                <HoldingsCard holdings={holdings} />
+                <PriceTrend
+                  buyPrice={currentBuyPrice}
+                  sellPrice={currentSellPrice}
+                  priceHistory={priceHistory}
+                  onUpdate={handlePriceUpdate}
+                  goldPriceLoading={goldPriceLoading}
+                  onRefresh={() => fetchAndUpdateGoldPrice(false)}
+                />
+              </>
+            )}
 
-        {activeTab === 'buy' && (
-          <BuyForm
-            onSubmit={addRecord}
-            suggestedPrice={realtimeGold?.avgBankGoldBarPrice ?? 0}
-          />
-        )}
+            {activeTab === 'buy' && (
+              <BuyForm
+                onSubmit={addRecord}
+                suggestedPrice={realtimeGold?.avgBankGoldBarPrice ?? 0}
+              />
+            )}
 
-        {activeTab === 'sell' && (
-          <SellForm
-            availableWeight={availableWeight}
-            onSubmit={(data) => addRecord({ ...data, laborCost: 0 })}
-            suggestedPrice={realtimeGold?.recyclePrice24K ?? 0}
-          />
-        )}
+            {activeTab === 'sell' && (
+              <SellForm
+                availableWeight={availableWeight}
+                onSubmit={(data) => addRecord({ ...data, laborCost: 0 })}
+                suggestedPrice={realtimeGold?.recyclePrice24K ?? 0}
+              />
+            )}
 
-        {activeTab === 'records' && (
-          <RecordList records={records} onDelete={deleteRecord} />
-        )}
+            {activeTab === 'records' && (
+              <RecordList records={records} onDelete={deleteRecord} />
+            )}
 
-        {activeTab === 'settings' && (
-          <ImportExport onImportSuccess={() => window.location.reload()} />
-        )}
-      </div>
+            {activeTab === 'settings' && (
+              <ImportExport onImportSuccess={() => window.location.reload()} />
+            )}
+          </div>
 
-      <div className={styles.footer}>
-        <TabBar activeKey={activeTab} onChange={setActiveTab}>
-          {tabs.map(item => (
-            <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
-          ))}
-        </TabBar>
-      </div>
-    </div>
+          <div className={styles.footer}>
+            <TabBar activeKey={activeTab} onChange={setActiveTab}>
+              {tabs.map(item => (
+                <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
+              ))}
+            </TabBar>
+          </div>
+        </div>
+      </PinGuard>
+    </AuthProvider>
   );
 }
 
