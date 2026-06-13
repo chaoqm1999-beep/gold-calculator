@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Card, Input, Modal } from 'antd-mobile';
+import { Card, Input, Modal, SpinLoading } from 'antd-mobile';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import type { PriceRecord, TrendRange } from '../types';
 import { calculatePriceChange, prepareChartData, formatMoney } from '../utils/calculator';
@@ -10,9 +10,20 @@ interface PriceTrendProps {
   sellPrice: number;
   priceHistory: PriceRecord[];
   onUpdate: (buyPrice: number, sellPrice: number) => void;
+  /** 是否正在加载 API 金价 */
+  goldPriceLoading: boolean;
+  /** 点击刷新金价 */
+  onRefresh: () => void;
 }
 
-export const PriceTrend: React.FC<PriceTrendProps> = ({ buyPrice, sellPrice, priceHistory, onUpdate }) => {
+export const PriceTrend: React.FC<PriceTrendProps> = ({
+  buyPrice,
+  sellPrice,
+  priceHistory,
+  onUpdate,
+  goldPriceLoading,
+  onRefresh,
+}) => {
   const [range, setRange] = useState<TrendRange>('realtime');
   const [editVisible, setEditVisible] = useState(false);
   const [tempBuyPrice, setTempBuyPrice] = useState('');
@@ -86,7 +97,15 @@ export const PriceTrend: React.FC<PriceTrendProps> = ({ buyPrice, sellPrice, pri
             <span className={styles.label}>实时金价</span>
             <span className={styles.badge}>LIVE</span>
           </div>
-          <span className={styles.editBtn} onClick={handleEditOpen}>编辑</span>
+          <div className={styles.headerActions}>
+            {goldPriceLoading && <SpinLoading style={{ '--size': '14px', marginRight: '8px' }} />}
+            <span className={styles.editBtn} onClick={onRefresh}>
+              刷新
+            </span>
+            <span className={styles.editBtn} onClick={handleEditOpen}>
+              编辑
+            </span>
+          </div>
         </div>
 
         {/* 金价展示区域 */}
