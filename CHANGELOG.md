@@ -2,6 +2,30 @@
 
 本文件记录 Gold Calculator 黄金持仓盈亏计算器的所有重要变更。
 
+## [0.2.0] — 2026-06-13
+
+### 新增
+
+- **实时金价 API 集成** — 接入 ruseo.cn 免费金价接口，价格卡片直接展示实时银行金条价、回收价、品牌金价，支持手动刷新，localStorage 30 分钟缓存
+- **PIN 访问控制** — 前端门控机制，默认 PIN `888888`，深色玻璃拟态解锁界面，sessionStorage 缓存登录态
+- **安全 HTTP 头** — vercel.json 配置 X-Content-Type-Options / X-Frame-Options / XSS-Protection / HSTS / CSP
+- **Vercel 一键部署** — 自动构建 + 环境变量注入 + 安全头策略
+
+### 修复
+
+- 买入/卖出表单日期选择器点击无弹窗问题（改用 visible state 控制）
+
+### 变更
+
+- 移除独立"市场参考价"区域，价格直接融入金价趋势卡片
+- `.gitignore` 新增 `docs/` 排除，已追踪 docs 文件从仓库移除
+- 买入/卖出表单新增参考提示（suggestedPrice prop）
+
+### 部署
+
+- 生产地址：`https://gold-calculator-inky.vercel.app`
+- 分支策略：`main`（稳定）← `v0.2`（开发）
+
 ## [0.1.0] — 2026-06-07
 
 ### 新增
