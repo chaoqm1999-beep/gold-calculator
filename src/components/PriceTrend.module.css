@@ -12,6 +12,12 @@
   margin-bottom: var(--space-3);
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
 .titleGroup {
   display: flex;
   align-items: center;
@@ -196,3 +202,4 @@
 .input {
   --adm-input-font-size: var(--text-base);
 }
+

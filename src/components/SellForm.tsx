@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Input, Button, DatePicker, Toast } from 'antd-mobile';
 import styles from './SellForm.module.css';
 import { formatMoney } from '../utils/calculator';
@@ -12,13 +12,25 @@ interface SellFormProps {
     price: number;
     note?: string;
   }) => void;
+  /** 实时金价参考（24K回收价），用于自动填充 */
+  suggestedPrice: number;
 }
 
-export const SellForm: React.FC<SellFormProps> = ({ availableWeight, onSubmit }) => {
+export const SellForm: React.FC<SellFormProps> = ({ availableWeight, onSubmit, suggestedPrice }) => {
   const [date, setDate] = useState<Date>(new Date());
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [weight, setWeight] = useState<string>('');
   const [price, setPrice] = useState<string>('');
   const [note, setNote] = useState<string>('');
+  const [priceAutoFilled, setPriceAutoFilled] = useState(false);
+
+  // 自动填充实时金价（仅首次、价格为空时）
+  useEffect(() => {
+    if (suggestedPrice > 0 && !priceAutoFilled && price === '') {
+      setPrice(suggestedPrice.toFixed(2));
+      setPriceAutoFilled(true);
+    }
+  }, [suggestedPrice, priceAutoFilled, price]);
 
   const weightNum = parseFloat(weight) || 0;
   const priceNum = parseFloat(price) || 0;
@@ -70,16 +82,20 @@ export const SellForm: React.FC<SellFormProps> = ({ availableWeight, onSubmit })
         <div className={styles.field}>
           <label className={styles.fieldLabel}>日期</label>
           <DatePicker
+            visible={datePickerVisible}
             value={date}
-            onConfirm={setDate}
+            onClose={() => setDatePickerVisible(false)}
+            onConfirm={(val) => {
+              setDate(val);
+              setDatePickerVisible(false);
+            }}
             max={new Date()}
           >
-            {(value) => (
-              <Button className={styles.dateBtn}>
-                {(value ?? new Date()).toLocaleDateString('zh-CN')}
-              </Button>
-            )}
+            {() => null}
           </DatePicker>
+          <Button className={styles.dateBtn} onClick={() => setDatePickerVisible(true)}>
+            {date.toLocaleDateString('zh-CN')}
+          </Button>
         </div>
 
         <div className={styles.field}>
@@ -94,7 +110,12 @@ export const SellForm: React.FC<SellFormProps> = ({ availableWeight, onSubmit })
         </div>
 
         <div className={styles.field}>
-          <label className={styles.fieldLabel}>金价（元/克）</label>
+          <label className={styles.fieldLabel}>
+            金价（元/克）
+            {suggestedPrice > 0 && (
+              <span className={styles.refHint}>回收参考 ¥{suggestedPrice.toFixed(2)}</span>
+            )}
+          </label>
           <Input
             className={styles.input}
             type="number"

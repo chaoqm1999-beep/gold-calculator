@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { TabBar } from 'antd-mobile';
+import { useMemo, useState, useEffect } from 'react';
+import { TabBar, Toast } from 'antd-mobile';
 import {
   AppOutline,
   AddCircleOutline,
@@ -16,6 +16,7 @@ import { ImportExport } from './components/ImportExport';
 import { useRecords } from './hooks/useRecords';
 import { useSettings } from './hooks/useSettings';
 import { calculateHoldings } from './utils/calculator';
+import { getGoldPrice, type GoldPriceData } from './services/goldPriceAPI';
 import styles from './App.module.css';
 
 function App() {
@@ -29,6 +30,43 @@ function App() {
     updatePrices,
     addPriceHistory,
   } = useSettings();
+
+  // 实时金价 API 数据（用于买入/卖出表单的价格建议）
+  const [realtimeGold, setRealtimeGold] = useState<GoldPriceData | null>(null);
+  const [goldPriceLoading, setGoldPriceLoading] = useState(false);
+
+  // 加载并写入实时金价
+  const fetchAndUpdateGoldPrice = async (silent = false) => {
+    setGoldPriceLoading(true);
+    try {
+      const data = await getGoldPrice(!silent); // silent 时用缓存，否则强制刷新
+      setRealtimeGold(data);
+
+      if (data.avgBankGoldBarPrice > 0 && data.recyclePrice24K > 0) {
+        await updatePrices(data.avgBankGoldBarPrice, data.recyclePrice24K);
+        await addPriceHistory({
+          date: new Date().toISOString(),
+          buyPrice: data.avgBankGoldBarPrice,
+          sellPrice: data.recyclePrice24K,
+          source: 'api',
+        });
+        if (!silent) {
+          Toast.show({ content: '金价已刷新', icon: 'success' });
+        }
+      }
+    } catch {
+      if (!silent) {
+        Toast.show({ content: '获取金价失败，请稍后重试', icon: 'fail' });
+      }
+    } finally {
+      setGoldPriceLoading(false);
+    }
+  };
+
+  // 首次加载：自动获取并写入实时金价
+  useEffect(() => {
+    fetchAndUpdateGoldPrice(true);
+  }, []);
 
   const holdings = useMemo(
     () => calculateHoldings(records, currentSellPrice, priceHistory),
@@ -91,18 +129,24 @@ function App() {
               sellPrice={currentSellPrice}
               priceHistory={priceHistory}
               onUpdate={handlePriceUpdate}
+              goldPriceLoading={goldPriceLoading}
+              onRefresh={() => fetchAndUpdateGoldPrice(false)}
             />
           </>
         )}
 
         {activeTab === 'buy' && (
-          <BuyForm onSubmit={addRecord} />
+          <BuyForm
+            onSubmit={addRecord}
+            suggestedPrice={realtimeGold?.avgBankGoldBarPrice ?? 0}
+          />
         )}
 
         {activeTab === 'sell' && (
           <SellForm
             availableWeight={availableWeight}
             onSubmit={(data) => addRecord({ ...data, laborCost: 0 })}
+            suggestedPrice={realtimeGold?.recyclePrice24K ?? 0}
           />
         )}
 

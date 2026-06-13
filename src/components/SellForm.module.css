@@ -77,6 +77,13 @@
   letter-spacing: -0.01em;
 }
 
+.refHint {
+  font-size: 11px;
+  font-weight: 400;
+  color: #a16207;
+  margin-left: var(--space-2);
+}
+
 .input {
   --adm-input-font-size: var(--text-base);
 }
