@@ -17,6 +17,9 @@ dist-ssr
 .env.local
 .env.*.local
 
+# Documentation (not for public)
+docs/
+
 # Workspace
 .workbuddy/
 
